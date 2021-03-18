@@ -9,29 +9,54 @@ Message
 {% endblock %}
 
 {% block content %}
-<div class="logout">
+<div class="text-right h6">
     <a href="/logout">Logout</a>
 </div>
-<p>{{message}}</p>
-<form method="POST" action="/">
-    <table>
-        <tr>
-            <th>Message</th>
-            <td>
-                <input type="text" name="comment" width="80">
-            </td>
-            <td>
-                <input type="submit" value="POST NOW!">
-            </td>
-        </tr>
-    </table>
-</form>
-<hr>
-<ul>
-{% for item in data|reverse %}
-    <li>{{item[1]}}({{item[0]}})</li>
-{% endfor %}
+<div class="alert alert-success p-1">
+    <h5>{{message}}</h5>
+</div>
+<!-- 切り替えタブ -->
+<ul class="nav nav-tabs" role="tablist">
+    <!-- 1つ目のタブ -->
+    <li class="nav-item">
+        <a class="nav-link active" href="#msgs" data-toggle="tab" role="tab">Message</a>
+    </li>
+    <!-- 2つ目のタブ -->
+    <li class="nav-item">
+        <a class="nav-link" href="#frms" data-toggle="tab" role="tab">Form</a>
+    </li>
 </ul>
+<!-- コンテンツ部分 -->
+<div class="tab-content">
+    <!-- 1つ目のコンテンツ -->
+    <div class="tab-pane fade show active" id="msgs" role="tabpanel">
+        <h5 class="p-3 h5 text-center">※ Posted Message ※</h5>
+        <ul class="list-group list-group-flush">
+            {% for item in data|reverse %}
+            <li class="list-group-item">
+                {{item[1]}}({{item[0]}})
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- 2つ目のコンテンツ -->
+    <div class="tab-pane fade show" id="frms" role="tabpanel">
+        <h5 class="p-3 h5 text-center">Post your message: </h5>
+        <div class="card mt-4">
+            <div class="card-body">
+                <form method="POST" action="/">
+                    <div class="form-group">
+                        <label for="comment">Message</label>
+                        <div class="row">
+                            <input type="text" class="form-control col" id="commnet" name="comment">
+                            <input type="submit" class="btn btn-primary col-3 col-sm-3 col-md-2 col-lg-2 col-xl-2"  value="POST NOW!">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block footer %}
